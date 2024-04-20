@@ -19,11 +19,11 @@ public:
 class Solution {
 public:
     Node* connect(Node* root) {
-    Node *cur, head(0);Node* x=root;
+    Node *cur, *head=new Node(0);Node* x=root;
         while(root)
         {
-            head.next = NULL;
-            cur = &head;
+            head->next = NULL;
+            cur = head;
             while(root)
             {
                 if(root->left)
@@ -38,7 +38,7 @@ public:
                 }
                 root = root->next;
             }
-            root = head.next;
+            root = head->next;
         }
         return x;
     }
