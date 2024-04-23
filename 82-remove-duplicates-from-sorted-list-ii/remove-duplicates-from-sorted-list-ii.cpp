@@ -38,7 +38,6 @@ public:
                 flag=1;
             }
             if(flag){
-                if(tmp) 
                     x->next=tmp->next;
             }
             else
