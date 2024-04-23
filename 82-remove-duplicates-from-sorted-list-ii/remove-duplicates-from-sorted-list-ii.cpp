@@ -34,15 +34,11 @@ public:
             int flag=0;
             while(tmp && tmp->next && tmp->val == tmp->next->val)
             {
-                ListNode* del=tmp;
                 tmp=tmp->next;
-                delete del;
                 flag=1;
             }
-            if(flag){
-                    x->next=tmp->next;
-                    delete tmp;
-            }
+            if(flag)
+                x->next=tmp->next;
             else
                 x=x->next;
         }
