@@ -9,26 +9,31 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+
+/**
+      5
+    /  \
+   2    6
+ /  
+1
+  \ 
+   3
+*/
+
 class Solution {
 public:
-    void inorder(TreeNode* root, vector<int>& v)
+    bool inorder(TreeNode* root, TreeNode* min, TreeNode* max)
     {
-        if(root)
-        {
-            inorder(root->left,v);
-            v.push_back(root->val);
-            inorder(root->right,v);
-        }
+        if(!root)
+            return true;
+        if((!min || root->val > min->val) && (!max || root->val < max->val))
+            return inorder(root->left,min,root) && inorder(root->right , root , max);
+        return false;
     }
     bool isValidBST(TreeNode* root) {
-        vector<int> v;
-        inorder(root,v);
-        for(int i=0;i<v.size()-1;i++)
-        {
-            if(v[i] >= v[i+1])
-                return false;
-        }
-        return true;
+        
+        return inorder(root,NULL,NULL);
+        
     }
 };
 
