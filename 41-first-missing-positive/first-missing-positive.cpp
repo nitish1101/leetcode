@@ -2,7 +2,7 @@ class Solution {
 public:
     int firstMissingPositive(vector<int>& nums) {
         int n=nums.size();
-        unordered_set<int> mp(nums.begin(),nums.end());
+        unordered_set<int> mp;
         for(int i=0;i<n;i++)
             if(nums[i] > 0)
                 mp.insert(nums[i]);
