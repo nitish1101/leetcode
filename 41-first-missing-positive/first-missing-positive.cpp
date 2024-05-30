@@ -1,12 +1,20 @@
 class Solution {
 public:
     int firstMissingPositive(vector<int>& nums) {
+        int n=nums.size();
+        for(int i=0;i<n;i++)
+            if(nums[i] <= 0)
+                nums[i]=INT_MAX;
         sort(nums.begin(),nums.end());
-        for(int i=1;i<=100001;i++)
+        unordered_set<int> mp(nums.begin(),nums.end());
+        int c=1;
+        while(c<=n)
         {
-            if(binary_search(nums.begin(),nums.end(),i)==false)
-                return i;
+            if(mp.find(c)==mp.end())
+                return c;
+            c++;
         }
-        return 0;
+       
+        return c;
     }
 };
