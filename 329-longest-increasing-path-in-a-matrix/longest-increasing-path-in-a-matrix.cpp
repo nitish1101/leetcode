@@ -1,45 +1,52 @@
 class Solution {
 public:
-    int isValid(int i, int j, int m, int n) {
-        return (i >= 0 && j >= 0 && i < m && j < n);
+    bool isValid(int i, int j, int n, int m)
+    {
+        return i>=0 && j>=0 && i<n && j<m;
     }
 
-    // f(i,j) represents LISeq from (i,j)
-    int f(int i, int j, vector<vector<int>>& matrix,
-          vector<vector<int>>& dp) {
-
-        // up, left, right, bottom
-        //up
-        if(dp[i][j]!=-1)
-            return dp[i][j];
-
-        // vis[i][j]=1;
-        int m=matrix.size();
-        int n=matrix[0].size();
-        int up=0,left=0,right=0,bottom=0;
+    int f(int i, int j, vector<vector<int>>& matrix,vector<vector<int>>& vis, int n, int m )
+    {
         
-        if(isValid(i-1,j,m,n) && matrix[i-1][j]>matrix[i][j])
-            up=f(i-1,j,matrix,dp);
-        if(isValid(i,j+1,m,n) && matrix[i][j+1]>matrix[i][j] )
-            right=f(i,j+1,matrix,dp);
-        if(isValid(i+1,j,m,n) && matrix[i+1][j]>matrix[i][j])
-            bottom=f(i+1,j,matrix,dp);
-        if(isValid(i,j-1,m,n) && matrix[i][j-1]>matrix[i][j] )
-            left=f(i,j-1,matrix,dp);
+        if(vis[i][j]!=0)
+            return vis[i][j];
+        
+        int dr[]={-1,0,+1,0};
+        int dc[]={0,+1,0,-1};
+        int tmp=1;
+        for(int k=0;k<4;k++)
+        {
+            int nr=i+dr[k];
+            int nc=j+dc[k];
+            if(isValid(nr,nc,n,m)  && matrix[nr][nc] > matrix[i][j])
+            {
+                tmp=max(tmp,1+f(nr,nc,matrix,vis,n,m));
+            }
+        }
+        return vis[i][j]=tmp;
 
-        return dp[i][j]=1+max(up,max(left,max(bottom,right)));
     }
 
     int longestIncreasingPath(vector<vector<int>>& matrix) {
-        int m=matrix.size();
-        int n=matrix[0].size();
-        vector<vector<int>> dp(m,vector<int>(n,-1));
-        // vector<vector<int>> vis(m,vector<int>(n,0));
+
+        int n=matrix.size();
+        int m=matrix[0].size();
+        vector<vector<int>> vis(n,vector<int>(m,0));
         int ans=0;
-        for(int i=0;i<m;i++)
-            for(int j=0;j<n;j++)
-                if(dp[i][j]==-1)
-                    ans=max(ans,f(i,j,matrix,dp));
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<m;j++)
+            {
+                if(!vis[i][j])
+                {
+                    int res=f(i,j,matrix,vis,n,m);
+                    ans=max(ans,res);
+                }
+            }
+        }
+
+   
+
         return ans;
     }
 };
