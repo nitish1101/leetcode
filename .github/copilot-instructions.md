@@ -3,80 +3,76 @@
 # DSA Practice Workspace - Copilot Instructions
 
 ## Project Overview
-This workspace is dedicated to practicing and implementing data structures and algorithms. It supports multiple programming languages and provides organized folders for different learning areas.
+This workspace is dedicated to practicing and implementing data structures and algorithms in Java. It includes both DSA (Data Structures & Algorithms) implementations and LLD (Low-Level Design) system design patterns for interview preparation.
+
+## ⚠️ CRITICAL WORKFLOW RULES
+
+**Do NOT perform any git operations without explicit user permission:**
+- ❌ Do NOT commit code changes
+- ❌ Do NOT push to remote
+- ❌ Do NOT create/switch branches
+- ❌ Do NOT merge branches
+- ❌ Do NOT perform any git pull/fetch operations
+
+**What to do instead:**
+- ✅ Make code changes in files (create, edit, delete files as requested)
+- ✅ Show exactly what was modified
+- ✅ Wait for the user to explicitly request git operations
+- ✅ User will provide commands like: "commit this", "push to remote", "git add and commit"
+
+**Exception:** Only run git commands if user explicitly says "commit", "push", "commit and push", "git add", or similar direct git operation requests.
 
 ## Workspace Structure
-- `data-structures/` - Implementations of fundamental data structures
-- `algorithms/` - Algorithm implementations (sorting, searching, dynamic programming, etc.)
-- `problems/` - Solutions to coding interview and practice problems
-- `tests/` - Test files for implementations
-- `scripts/` - Utility scripts for running and testing code
+This is a Java-only workspace focused on DSA and LLD interview preparation:
+- `java/` - Main Java project directory
+  - `src/main/java/dsa/` - Data Structures and Algorithms implementations
+    - `datastructures/` - Stack, Queue, LinkedList, etc.
+    - `algorithms/` - Searching and sorting algorithms
+  - `src/main/java/lld/` - Low-Level Design system design patterns
+    - `patterns/` - Design patterns (Creational, Behavioral)
+    - `problems/` - LLD interview problems (Parking Lot, Elevator, Library, ATM)
+  - `src/test/java/` - JUnit 5 test suites
+  - `pom.xml` - Maven configuration
+  - `README.md` - Java project documentation
 
 ## Coding Standards
-- **Languages**: Support JavaScript/TypeScript, Python, and Java where applicable
+
+### Java Standards (Primary Language)
+- Indentation: 4 spaces
+- Use PascalCase for class names, camelCase for methods and variables
+- Include JavaDoc comments for public classes and methods
+- Packages: 
+  - DSA implementations: `dsa.datastructures`, `dsa.algorithms.*`
+  - LLD implementations: `lld.patterns.*`, `lld.problems.*`
+- File organization: One public class per file
+- Example DSA: `java/src/main/java/dsa/datastructures/Stack.java`
+- Example LLD: `java/src/main/java/lld/problems/parking_lot/ParkingLotSystem.java`
+
+### General Guidelines
 - **Comments**: Add clear comments explaining the logic
 - **Complexity**: Include time and space complexity notes (O notation)
-- **Testing**: Write comprehensive test cases for implementations
-- **Naming**: Use clear, descriptive variable and function names
-- **Code Style**: Follow language-specific conventions
-
-### Language-Specific Standards
-
-**TypeScript/JavaScript:**
-- Indentation: 2 spaces
-- Use meaningful variable names
-- Include JSDoc comments for functions
-- Example: `algorithms/{category}/{name}.ts`
-
-**Python:**
-- Indentation: 4 spaces
-- Use snake_case for functions and variables
-- Include docstrings for classes and functions
-- Example: `algorithms/{category}/{name}.py`
-
-**Java:**
-- Indentation: 4 spaces
-- Use PascalCase for class names, camelCase for methods
-- Include JavaDoc comments for public methods
-- Use packages: `dsa.datastructures`, `dsa.algorithms.*`
-- Example: `java/src/main/java/dsa/datastructures/{Name}.java`
+- **Testing**: Write comprehensive JUnit 5 test cases
+- **Naming**: Use clear, descriptive class and method names
+- **Code Style**: Follow Java conventions and SOLID principles
 
 ## Development Guidelines
 - Implement one data structure or algorithm per file
 - Include complexity analysis in comments
 - Add test cases before or alongside implementation
-- Use consistent indentation (2 spaces for JS/TS, 4 for Python)
+- Use consistent indentation (4 spaces for Java)
 - Follow DRY (Don't Repeat Yourself) principle
 
 ## File Organization Rules
 
-### TypeScript/JavaScript
-- Data structures: `data-structures/{name}.ts`
-- Algorithms: `algorithms/{category}/{name}.ts`
-- Tests: `tests/{component-name}.test.ts`
-
-### Python
-- Data structures: `data-structures/{name}.py`
-- Algorithms: `algorithms/{category}/{name}.py`
-- Tests: `tests/{component_name}_test.py`
-
-### Java
+### Java Project Structure
 - Data structures: `java/src/main/java/dsa/datastructures/{Name}.java`
-- Algorithms: `java/src/main/java/dsa/algorithms/{category}/{Name}.java`
-- Tests: `java/src/test/java/dsa/{ComponentName}Test.java`
+- DSA algorithms: `java/src/main/java/dsa/algorithms/{category}/{Name}.java`
+- Design patterns: `java/src/main/java/lld/patterns/{type}/{Name}.java`
+- LLD problems: `java/src/main/java/lld/problems/{problem_name}/{ClassName}.java`
+- Tests: `java/src/test/java/{package}/{ComponentName}Test.java`
 - Build: Maven with `pom.xml` configuration
 
 ## Testing Frameworks
-
-### TypeScript/JavaScript
-- Framework: Jest
-- Command: `npm test`
-- Pattern: `*.test.ts` files
-
-### Python
-- Framework: pytest or unittest
-- Command: `pytest tests/`
-- Pattern: `*_test.py` files
 
 ### Java
 - Framework: JUnit 5 (Jupiter)
@@ -186,10 +182,19 @@ When creating Java test classes, follow these patterns:
 - `assertThrows(Exception.class, () -> {...})` - For exception testing
 
 ## Git Conventions
+**CRITICAL: Only perform git operations (commit, push, pull, merge) when explicitly requested by the user. Do not automatically commit or push code changes.**
+
 - Commit messages should reference the data structure or algorithm being added
 - Example: "feat: Add Binary Search Tree implementation with insert and search"
 - For Java: "feat(java): Add Stack data structure with JUnit 5 tests"
 - For multiple files: "feat: Add BubbleSort and MergeSort with comprehensive test coverage"
+
+### Required Permissions
+- **Committing code**: User must explicitly request with "commit", "save changes", or similar phrasing
+- **Pushing code**: User must explicitly request with "push", "push to remote", "push to github", or similar phrasing
+- **Creating/switching branches**: User must explicitly request git branch operations
+- **Merging branches**: User must explicitly request merge operations
+- Default behavior: Make code changes and show what was modified, but wait for explicit permission before any git operations
 
 ## LLD (Low-Level Design) - Interview Preparation
 
