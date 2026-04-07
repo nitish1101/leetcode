@@ -1,6 +1,6 @@
-# Data Structures and Algorithms Practice
+# Java DSA & LLD Interview Preparation
 
-A comprehensive workspace for practicing and mastering data structures and algorithms.
+A comprehensive Java-based workspace for practicing data structures, algorithms, and system design patterns for technical interviews.
 
 ## 📁 Project Structure
 
@@ -23,8 +23,8 @@ infiniti/
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Java (v11+) with Maven (v3.6+) for Java DSA and LLD
-- Python (v3.7+) for Python implementations (optional)
+- Java (v11+)
+- Maven (v3.6+)
 
 ### Setup
 
@@ -164,13 +164,12 @@ mvn clean test
 - [ ] All tests passing
 - [ ] Code reviewed and optimized
 
-## 🔗 Resources
+## � Getting Help
 
+- [java/README.md](java/README.md) - Detailed Java project setup and Maven commands
 - LeetCode for DSA problems
-- GeeksforGeeks for theory
 - System Design Interview resources
-- YouTube for visual explanations
-- [java/README.md](java/README.md) - Java project setup and Maven commands
+- GeeksforGeeks for theory
 
 ---
 
