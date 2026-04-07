@@ -6,10 +6,10 @@ A comprehensive workspace for practicing and mastering data structures and algor
 
 ```
 infiniti/
-├── data-structures/      # Core data structure implementations (TypeScript)
-├── algorithms/           # Algorithm implementations by category (TypeScript)
+├── data-structures/      # Core data structure implementations
+├── algorithms/           # Algorithm implementations by category
 ├── problems/             # Coding problem solutions
-├── tests/                # Test suites (TypeScript/JavaScript)
+├── tests/                # Test suites
 ├── scripts/              # Utility scripts
 ├── java/                 # Java-based DSA and LLD implementations
 │   ├── src/main/java/
@@ -28,13 +28,13 @@ infiniti/
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js (v14+) for JavaScript/TypeScript
+- Node.js (v14+) for JavaScript
 - Python (v3.7+) for Python implementations (optional)
 - Java (v11+) with Maven (v3.6+) for Java DSA and LLD
 
 ### Setup
 
-**TypeScript/JavaScript:**
+**JavaScript:**
 ```bash
 # Install dependencies
 npm install
@@ -122,7 +122,7 @@ Prepare for system design interviews with comprehensive LLD implementations.
 
 Each implementation includes test cases.
 
-**TypeScript/JavaScript:**
+**JavaScript:**
 ```bash
 npm test
 ```
