@@ -4,21 +4,20 @@ public:
         
         sort(nums.begin(),nums.end());
         int n=nums.size();
-        int mid=(n%2==0) ? (n/2)-1 : n/2; 
+        int mid= (n-1)/2;
         vector<int> ans;
 
         int i=mid;
         int j=n-1;
 
-        while(i>=0 && j>mid)
+        while(i>=0 || j>mid)
         {
-            ans.push_back(nums[i]);
-            ans.push_back(nums[j]);
-            i--;
-            j--;
+            if(i>=0)
+                ans.push_back(nums[i--]);
+            if(j>mid)
+                ans.push_back(nums[j--]);
+            
         }
-        if(n!=0 && i==0)
-            ans.push_back(nums[i]);
 
         nums=ans;
     }
