@@ -10,15 +10,14 @@ public:
         int i=mid;
         int j=n-1;
 
-        while(i>=0 || j>mid)
+        for(int i=mid,j=n-1; i>=0 || j>mid; i--,j--)
         {
             if(i>=0)
-                ans.push_back(nums[i--]);
+                ans.push_back(nums[i]);
             if(j>mid)
-                ans.push_back(nums[j--]);
+                ans.push_back(nums[j]);
             
         }
-
         nums=ans;
     }
 };  
