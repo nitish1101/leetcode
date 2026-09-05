@@ -1,31 +1,40 @@
 class Solution {
 public:
-    int f(int i,bool prev, vector<int>& nums, int n, vector<vector<int>>& dp)
+
+    int f(int i, vector<int>& nums, vector<int>& dp)
     {
-        if(i==n-1){
-            if(!prev)
-                return nums[i];
+        if(i>=nums.size())
             return 0;
-        }
-        if(dp[i][prev]!=-1)
-            return dp[i][prev];
-
-
-        int rob=0, not_rob=0;
-        if(!prev)
-            rob=nums[i] + f(i+1,true,nums,n,dp);
-        not_rob=0+f(i+1,false,nums,n,dp);
-        return dp[i][prev]=max(rob,not_rob);
+        if(dp[i]!=-1)
+            return dp[i];
+        int p=nums[i]+f(i+2,nums, dp);
+        int np=f(i+1,nums,dp);
+        return dp[i]=max(p,np);
     }
     int rob(vector<int>& nums) {
-        /**
-        i, prev
-        rob or not rob
-        last house to be robbed if prev=0
-        memoize
-         */
-         int n=nums.size();
-         vector<vector<int>> dp(n,vector<int>(2,-1));
-         return f(0,false,nums,n,dp);      
+        vector<int> dp(nums.size(),-1);
+        return f(0,nums,dp);
     }
 };
+
+
+/***
+1,2,3,1
+
+no adj
+
+max money
+
+
+f(i,nums,dp)
+
+
+p = nums[i] + f(i+2,nums)
+np = f(i+1, nums)
+
+dp[i]=max(p,np);
+
+
+
+
+*/
