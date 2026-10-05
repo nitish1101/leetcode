@@ -1,27 +1,51 @@
 class Solution {
 public:
     bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
-        vector<vector<int>> next(numCourses);
-        vector<int> indegree(numCourses, 0);
-        for (const auto& edge : prerequisites) {
-            next[edge[1]].push_back(edge[0]);
-            ++indegree[edge[0]];
+
+        vector<int> indegree(numCourses,0);
+        vector<vector<int>> adjList(numCourses);
+        for(vector<int> v : prerequisites)
+        {
+            indegree[v[0]]++;
+            adjList[v[1]].push_back(v[0]);
+        }
+        queue<int> startNodes;
+        for(int i=0;i< numCourses ;i++)
+        {
+            if(indegree[i]==0)
+                startNodes.push(i);
         }
 
-        queue<int> ready;
-        for (int course = 0; course < numCourses; ++course) {
-            if (indegree[course] == 0) ready.push(course);
-        }
-
-        int completed = 0;
-        while (!ready.empty()) {
-            int course = ready.front();
-            ready.pop();
-            ++completed;
-            for (int after : next[course]) {
-                if (--indegree[after] == 0) ready.push(after);
+        while(!startNodes.empty())
+        {
+            int x=startNodes.front();
+            startNodes.pop();
+            for(int i : adjList[x])
+            {
+                indegree[i]--;
+                if(indegree[i]==0)
+                    startNodes.push(i);
             }
         }
-        return completed == numCourses;
+        
+        for(int x : indegree)
+        {
+            if(x==0)
+                numCourses--;
+        }
+        if(numCourses)
+            return false;
+        return true;
     }
 };
+
+
+/**a
+
+if cyc => false
+
+
+
+
+
+*/
