@@ -1,40 +1,36 @@
 class Solution {
 public:
+
+    bool dfsCycle(int i,vector<int>& vis, vector<vector<int>>& adjList)
+    {
+        if(vis[i]==1)
+            return true;
+        if(vis[i]==2)
+            return false;
+        
+        vis[i]=1;
+        for(int x : adjList[i])
+        {
+            if(dfsCycle(x,vis,adjList))
+                return true;
+        }
+        vis[i]=2;
+        return false;
+    }
+
     bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
 
-        vector<int> indegree(numCourses,0);
+        vector<int> vis(numCourses,0);
         vector<vector<int>> adjList(numCourses);
         for(vector<int> v : prerequisites)
-        {
-            indegree[v[0]]++;
             adjList[v[1]].push_back(v[0]);
-        }
-        queue<int> startNodes;
-        for(int i=0;i< numCourses ;i++)
-        {
-            if(indegree[i]==0)
-                startNodes.push(i);
-        }
 
-        while(!startNodes.empty())
+        for(int i=0;i<numCourses;i++)
         {
-            int x=startNodes.front();
-            startNodes.pop();
-            for(int i : adjList[x])
-            {
-                indegree[i]--;
-                if(indegree[i]==0)
-                    startNodes.push(i);
-            }
+            if(!vis[i])
+                if(dfsCycle(i,vis,adjList)==true)
+                    return false;
         }
-        
-        for(int x : indegree)
-        {
-            if(x==0)
-                numCourses--;
-        }
-        if(numCourses)
-            return false;
         return true;
     }
 };
