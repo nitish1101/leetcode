@@ -1,40 +1,46 @@
 class Solution {
-    vector<int> v;
+
 public:
-    bool dfs(int i,  unordered_map<int,vector<int>>& mp,bool vis[],bool mainVis[])
-    {
-        vis[i]=1;
-        mainVis[i]=1;
-        for(auto e: mp[i])
+    bool dfsCycle(int i,vector<int>& vis,vector<int>& path, vector<vector<int>>& adjList)
         {
-            if(vis[e]) {
-                cout<<"Holla-"<<i<<e<<endl;
+            if(vis[i]==1)
+                return true;
+            if(vis[i]==2)
                 return false;
+            
+            vis[i]=1;
+            for(int x : adjList[i])
+            {
+                if(dfsCycle(x,vis,path,adjList))
+                    return true;
             }
-            if(!mainVis[e])
-                if(!dfs(e,mp,vis,mainVis))
-                    return false;
+            vis[i]=2;
+            path.push_back(i);
+            return false;
         }
-        vis[i]=false;
-        v.push_back(i);
-        return true;
-    }
+
     vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
-        unordered_map<int,vector<int>> mp;
-        int n=numCourses;
-        bool vis[2001]={false};
-        bool mainVis[2001]={false};
-        for(auto i : prerequisites)
-        {
-            mp[i[0]].push_back(i[1]);
-        }
+        vector<int> vis(numCourses,0);
+        vector<vector<int>> adjList(numCourses);
+        vector<int> ans, path;
+
+        for(vector<int> v : prerequisites)
+            adjList[v[1]].push_back(v[0]);
+
         for(int i=0;i<numCourses;i++)
         {
-            if(!mainVis[i])
-                if(!dfs(i,mp,vis,mainVis))
-                    return {};
+            if(!vis[i])
+                if(dfsCycle(i,vis,path,adjList)) {
+                    ans.clear();
+                    return ans;
+                }
+                    
+            ans.insert(ans.end(), path.begin(),path.end());
+            path.clear();
         }
-        return v;
-        
+        reverse(ans.begin(),ans.end());
+        return ans;   
     }
 };
+
+
