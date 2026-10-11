@@ -2,51 +2,38 @@ class Solution {
 public:
     int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst,
                           int k) {
+        // update distance only if steps less than equal to k+1;
+        // pq<vector<int> // dist, node, steps
 
         vector<vector<pair<int, int>>> adjList(n);
+
+        vector<int> dist(n, INT_MAX);
+
+        // cost,node, steps
+        queue<vector<int>> pq;
 
         for (auto x : flights)
             adjList[x[0]].push_back({x[1], x[2]});
 
-        vector<vector<int>> dist(n, vector<int>(k + 2, INT_MAX));
-
-        priority_queue<vector<int>, vector<vector<int>>, greater<vector<int>>>
-            pq;
-
-        dist[src][0] = 0;
+        dist[src] = 0;
         pq.push({0, src, 0});
-
         while (!pq.empty()) {
-            auto t = pq.top();
-            pq.pop();
-
+            auto t = pq.front();
             int cd = t[0];
             int node = t[1];
             int steps = t[2];
+            pq.pop();
 
-            if (steps == k + 1)
-                continue;
-
-            if (cd != dist[node][steps])
+            if(steps > k)
                 continue;
 
             for (auto x : adjList[node]) {
-                int next = x.first;
-                int newCost = cd + x.second;
-                int newSteps = steps + 1;
-
-                if (newCost < dist[next][newSteps]) {
-                    dist[next][newSteps] = newCost;
-                    pq.push({newCost, next, newSteps});
+                if (cd + x.second < dist[x.first] && steps <= k) {
+                    dist[x.first] = cd + x.second;
+                    pq.push({dist[x.first], x.first, steps + 1});
                 }
             }
         }
-
-        int ans = INT_MAX;
-
-        for (int steps = 0; steps <= k + 1; steps++)
-            ans = min(ans, dist[dst][steps]);
-
-        return ans == INT_MAX ? -1 : ans;
+        return dist[dst] == INT_MAX ? -1 : dist[dst];
     }
 };
