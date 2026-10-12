@@ -1,68 +1,74 @@
 class Solution {
 public:
-    bool isNum(char c)
-    {
-        return (c >= '0' && c <='9') ? true : false;
+
+    bool isInteger(string s) {
+    if (s.empty())
+        return false;
+
+    for (char c : s) {
+        if (!isdigit(static_cast<unsigned char>(c)))
+            return false;
     }
 
+    return true;
+}
+
     string decodeString(string s) {
-        stack<string> s1;
-        string ans="";
-        int l=s.length();
-        
-        for(char c : s)
+        // stack
+        // until stack is empty();
+        //     push except for] 
+        //     when ]  pop until [  + all conssecutive digits
+        //     for the string popped, append it the number times and push back to the stack
+
+        stack<string> st;
+        st.push(string(1,s[0]));
+
+        int i=1; int l=s.length();
+        while(!st.empty() && i<l)
         {
-            if(c==']')
+            if( string(1,s[i]) != "]")
             {
-                string x1="";
-                while(!s1.empty() && s1.top()!="[") 
-                {
-                    x1 = s1.top() + x1; //a //
-                    s1.pop();
-                }
-
-                s1.pop();
-
-                string a="";
-                while(!s1.empty() && isNum(s1.top()[0]))
-                {
-                    a=s1.top()+a;
-                    s1.pop();
-                }
-                int aa=stoi(a); //3
-
-                string x2="";
-                for (int i = 1; i <= aa; ++i)
-                    x2+=x1; //aaa
-                
-                s1.push(x2);  //aaa 
+                st.push( string(1,s[i]));
             }
             else
-                s1.push(string(1,c));
+            {
+                string tmp="";
+                string m="";
+                while(!st.empty() && st.top()!="[")
+                {
+                    tmp  = st.top() + tmp;
+                    st.pop();
+                }
+                st.pop();
+
+                while(!st.empty() && isInteger(st.top())==true)
+                {
+                    m=st.top() + m;
+                    st.pop();
+                }
+
+                int x = stoi(m);
+                string ss=tmp;
+                for(int j=1;j<x;j++)
+                    ss += tmp;
+
+
+                st.push(ss);
+            }
+            i++;
         }
-        while(!s1.empty())
+        string ans="";
+        while(!st.empty())
         {
-            ans=s1.top()+ans;
-            s1.pop();
+            ans=st.top()+ans;
+            st.pop();
         }
         return ans;
     }
 };
 
+/**
 
-/***
-ans=
-a
-a
-a
-c
-c
-[3[a21[c]]
-
-2c
-3a
-
-[
 
 
 
