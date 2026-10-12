@@ -1,39 +1,34 @@
-struct Compare {
-    bool operator()(const pair<int,int>& p1, const pair<int,int>& p2) const {
-        return p1.second > p2.second ;
-    }
-};
-
 class Solution {
 public:
     vector<int> topKFrequent(vector<int>& nums, int k) {
-        unordered_map<int,int> mp;
-        for(auto i : nums)
-            mp[i]++;
 
-        priority_queue<pair<int,int>,vector<pair<int,int>>,Compare> pq;
+        // hash map => n
+        // x.log(n)
+
+        //n+x logn
+        //x, k
+        int n=nums.size();
+        unordered_map<int, int> fmap(n+1);
         
-        for(auto &[key,val] : mp) {
+        for(int x : nums)
+            fmap[x]++;
+        
+        priority_queue< pair<int,int> , vector<pair<int,int>>, greater<pair<int,int>> > pq;
 
-            pair<int, int> p = {key, val};
-            pq.push(p);
+        for(auto x : fmap)
+        {
+            pq.push({x.second,x.first});
             if(pq.size() > k)
                 pq.pop();
-            
-            
         }
+
         vector<int> ans;
         while(!pq.empty())
         {
-            pair<int,int> p=pq.top();
+            ans.push_back(pq.top().second);
             pq.pop();
-            ans.push_back(p.first);
         }
-        reverse(ans.begin(),ans.end());
+
         return ans;
     }
 };
-
-
-
-
