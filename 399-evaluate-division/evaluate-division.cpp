@@ -1,64 +1,58 @@
 class Solution {
-    vector<double> ans;
 public:
-    bool findPath(string s, string d, unordered_map<string, vector<pair<string, double>>>& mp, unordered_set<string>& vis, double res)
-    {
+    double dfs(string s, string d,
+               unordered_map<string, vector<pair<string, double>>>& adj,
+               unordered_set<string>& vis) {
+
+        if (s == d)
+            return 1.0;
+
         vis.insert(s);
-        if(s==d){
-            ans.push_back(res);
-            vis.erase(s);
-            return true;
-        }
-        
-        for(auto e: mp[s])
-        {
-            if(vis.find(e.first)==vis.end())
-            {
-                if(findPath(e.first,d,mp,vis,res*e.second)){
-                     vis.erase(s);
-                    return true;  
-                } 
+
+        for (auto x : adj[s]) {
+            string next = x.first;
+            double cost = x.second;
+
+            if (!vis.count(next)) {
+                double res = dfs(next, d, adj, vis);
+
+                if (res != -1.0)
+                    return cost * res;
             }
         }
-        vis.erase(s);
-        return false;
+
+        return -1.0;
     }
 
-    bool isValidVariable(string s,unordered_map<string, vector<pair<string, double>>>& mp)
-    {
-        
-        if(mp.find(s)==mp.end())
-            return false;
-        return true;
-    }
+    vector<double> calcEquation(vector<vector<string>>& equations,
+                                vector<double>& values,
+                                vector<vector<string>>& queries) {
 
-    vector<double> calcEquation(vector<vector<string>>& equations, vector<double>& values, vector<vector<string>>& queries) {
-       unordered_map<string, vector<pair<string, double>>> mp;
-       for(int i=0;i<equations.size();i++)
-       {
-           mp[equations[i][0]].push_back({equations[i][1],values[i]});
-           mp[equations[i][1]].push_back({equations[i][0],(1/values[i])}); 
-       }
-       for(auto e : mp)
-       {
-           for(auto v: e.second)
-           {
-               cout<<v.first<<" "<<v.second<<",";
-           }
-           cout<<endl;
-       }
-      
-       unordered_set<string> vis;
-       for(auto v: queries)
-       {
-           if(!isValidVariable(v[0],mp) || !isValidVariable(v[1],mp)){
-                ans.push_back(-1);
+        unordered_map<string, vector<pair<string, double>>> adj;
+
+        for (int i = 0; i < equations.size(); i++) {
+            string a = equations[i][0];
+            string b = equations[i][1];
+
+            adj[a].push_back({b, values[i]});
+            adj[b].push_back({a, 1.0 / values[i]});
+        }
+
+        vector<double> ans;
+
+        for (auto& q : queries) {
+            string src = q[0];
+            string dst = q[1];
+
+            if (!adj.count(src) || !adj.count(dst)) {
+                ans.push_back(-1.0);
                 continue;
-           }
-           if(!findPath(v[0],v[1],mp,vis,1))
-                ans.push_back(-1);
-       }
-       return ans;
+            }
+
+            unordered_set<string> vis;
+            ans.push_back(dfs(src, dst, adj, vis));
+        }
+
+        return ans;
     }
 };
-
